@@ -45,10 +45,10 @@ python3.11 broadcast.py
 请使用每日科技播报技能，执行播报并将结果发送到当前频道。使用命令：cd <workspace>/skills/daily-tech-broadcast/scripts && python3.11 broadcast.py 2>&1
 ```
 
-例如 workspace 为 `/root/clawd` 时：
+例如 workspace 为 `/path/to/your/workspace` 时：
 
 ```text
-请使用每日科技播报技能，执行播报并将结果发送到当前频道。使用命令：cd /root/clawd/skills/daily-tech-broadcast/scripts && python3.11 broadcast.py 2>&1
+请使用每日科技播报技能，执行播报并将结果发送到当前频道。使用命令：cd /path/to/your/workspace/skills/daily-tech-broadcast/scripts && python3.11 broadcast.py 2>&1
 ```
 
 保持 `deliver: true` 及正确的 `channel`、`to`，以便结果投递到目标频道。

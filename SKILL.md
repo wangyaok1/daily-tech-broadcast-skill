@@ -37,7 +37,7 @@ metadata:
 ### 推荐 exec 命令（供 cron 或 AI 调用）
 
 ```bash
-cd /root/clawd/skills/daily-tech-broadcast/scripts && python3.11 broadcast.py 2>&1
+cd <workspace>/skills/daily-tech-broadcast/scripts && python3.11 broadcast.py 2>&1
 ```
 
 - 简报正文**仅输出到 stdout**，供消息发送；调试信息在 stderr。
@@ -46,7 +46,7 @@ cd /root/clawd/skills/daily-tech-broadcast/scripts && python3.11 broadcast.py 2>
 ### 手动执行
 
 ```bash
-cd /root/clawd/skills/daily-tech-broadcast/scripts
+cd <workspace>/skills/daily-tech-broadcast/scripts
 python3.11 broadcast.py
 ```
 
@@ -55,7 +55,7 @@ python3.11 broadcast.py
 在 OpenClaw cron 中，将每日科技播报任务的 `payload.message` 设为（与第二件事一致）：
 
 ```
-请使用每日科技播报技能，执行播报并将结果发送到当前频道。使用命令：cd /root/clawd/skills/daily-tech-broadcast/scripts && python3.11 broadcast.py 2>&1
+请使用每日科技播报技能，执行播报并将结果发送到当前频道。使用命令：cd <workspace>/skills/daily-tech-broadcast/scripts && python3.11 broadcast.py 2>&1
 ```
 
 - 不要使用「搜索今日重要科技新闻」等表述，以免 AI 误用 web_search（需 API Key）。
