@@ -1,6 +1,7 @@
 ---
 name: 每日科技播报
 description: 从可抓取信息源（新浪科技、IT之家等）拉取当日科技新闻标题，生成简报并输出。无需 API Key，适合定时任务与手动触发。当用户要求执行每日科技播报、科技新闻简报、今日科技要闻时使用此技能。
+description_en: "Fetch daily tech headlines from configurable sources (Sina Tech, IT Home). No API Key. Use for cron or when user asks for daily tech broadcast / tech news digest."
 metadata:
   clawdbot:
     emoji: "📰"
@@ -68,3 +69,12 @@ python3.11 broadcast.py
 
 - 单源失败时，脚本会继续使用其他源，不会整体失败。
 - 若全部抓取失败，会输出一段降级提示文案（仍通过 stdout），便于用户知晓。
+
+---
+
+## English summary
+
+- **What**: Fetch daily tech news headlines from configurable sources (Sina Tech, IT Home), output a digest to stdout. No API Key.
+- **When to use**: User says “daily tech broadcast”, “tech news digest”, “今日科技播报”, or cron payload asks for this skill.
+- **Run**: `cd <path>/scripts && python3.11 broadcast.py 2>&1`
+- **Data sources**: Edit `NEWS_SOURCES` in `scripts/broadcast.py` to add/remove/reorder sources.

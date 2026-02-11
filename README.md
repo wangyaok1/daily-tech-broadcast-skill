@@ -1,6 +1,12 @@
-# 每日科技播报 Skill
+# Daily Tech Broadcast Skill / 每日科技播报 Skill
+
+Fetch daily tech news headlines from configurable sources (e.g. Sina Tech, IT Home), output a short digest. **No API Key required.** Suitable for OpenClaw/Clawdbot cron or manual trigger.
 
 从可抓取信息源（新浪科技、IT之家等）拉取当日科技新闻标题，生成简报。**无需 API Key**，适合 OpenClaw/Clawdbot 定时推送或手动触发。
+
+---
+
+## 中文说明
 
 ## 用途
 
@@ -67,8 +73,74 @@ python3.11 broadcast.py
 
 ## ClawHub 发布（C）
 
-目录已包含 `_meta.json` 与 `.clawhub/origin.json`，符合 ClawHub 规范。发布到技能市场时，在 ClawHub 侧提交或按文档完成发布流程即可；若支持从 GitHub 仓库 URL 安装，可直接指向上述独立仓库。
+目录已包含 `_meta.json` 与 `.clawhub/origin.json`，符合 ClawHub 规范。
+
+**在本地发布到 ClawHub 的步骤：**
+
+1. **登录（仅需一次）**  
+   - 若在**有浏览器的电脑**上：直接运行 `npx clawhub login`，按提示在浏览器里用 GitHub 完成授权即可。  
+   - 若在**无浏览器的远程服务器**上：需要先在**你本地有浏览器的电脑**上运行一次 `npx clawhub login` 完成授权，然后在本地找到 ClawHub 存的 token（见下方「远程用 token 登录」），在远程执行：  
+     `npx clawhub login --token <粘贴token> --no-browser`  
+     这样远程环境就视为已登录，之后可在远程执行 `publish`。
+2. 在仓库根或本 skill 父级目录执行：
+   ```bash
+   npx clawhub publish skills/daily-tech-broadcast --slug daily-tech-broadcast --name "每日科技播报" --version 1.0.0 --changelog "Initial release: 新浪科技/IT之家抓取，无需 API Key"
+   ```
+   若从本目录执行则路径改为 `.`：
+   ```bash
+   cd /path/to/daily-tech-broadcast-skill
+   npx clawhub publish . --slug daily-tech-broadcast --name "每日科技播报" --version 1.0.0 --changelog "Initial release"
+   ```
 
 ## 开放与许可
 
 本 Skill 可单独复制、修改、分发。推送到独立仓库或通过 ClawHub 安装时，保持本目录结构即可。
+
+---
+
+## English
+
+**Daily Tech Broadcast** pulls headlines from configurable, scrapable sources (Sina Tech, IT Home, etc.) and prints a short digest to stdout. No API Key needed; low token usage.
+
+### Use cases
+
+- **Cron**: Push a daily tech digest to Discord/Feishu/etc. at a fixed time.
+- **Manual**: When the user says “run daily tech broadcast”, generate and return the digest.
+
+### Install
+
+1. Copy this directory into your OpenClaw workspace `skills/` (e.g. `<workspace>/skills/daily-tech-broadcast/`).
+2. No extra deps: Python 3 stdlib only. Ensure `python3.11` (or `python3`) is available.
+
+### Run
+
+```bash
+cd skills/daily-tech-broadcast/scripts
+python3.11 broadcast.py
+```
+
+Output goes to stdout and can be sent as the message body.
+
+### Cron (OpenClaw)
+
+Set `payload.message` to (replace path with your workspace):
+
+```text
+请使用每日科技播报技能，执行播报并将结果发送到当前频道。使用命令：cd <workspace>/skills/daily-tech-broadcast/scripts && python3.11 broadcast.py 2>&1
+```
+
+Keep `deliver: true` and correct `channel` / `to` so the result is delivered.
+
+### Data sources (customizable)
+
+| Source   | URL                         |
+|----------|-----------------------------|
+| Sina Tech| https://tech.sina.com.cn/   |
+| IT Home  | https://www.ithome.com/     |
+
+You can add, remove, or reorder sources in `scripts/broadcast.py` → `NEWS_SOURCES`. No API Key; plain HTTP fetch.
+
+### Troubleshooting
+
+- If one source fails, others are still used.
+- If all fail, a short fallback message is still printed to stdout.
