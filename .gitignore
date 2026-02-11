@@ -1,0 +1,6 @@
+# 本地或临时文件
+*.pyc
+__pycache__/
+.pytest_cache/
+*.log
+.DS_Store
